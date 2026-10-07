@@ -1,0 +1,34 @@
+﻿classDiagram
+    class GiModel {
+        -Dictionary database
+        +String LastProduct
+        +int CurrentGi
+        +event OnDataChanged
+        +event OnError
+        +SearchProduct(String name)
+    }
+
+    class GiController {
+        -GiModel model
+        +GiController(GiModel model)
+        +HandleSearch(String productName)
+    }
+
+    class MainForm {
+        -GiModel model
+        -GiController controller
+        +MainForm()
+        -btnOpenInput_Click()
+    }
+
+    class InputForm {
+        -TextBox txtProduct
+        +String EnteredProduct
+        +InputForm(String previousInput)
+        -btnOk_Click()
+    }
+
+    MainForm --> GiModel : Подписка на события
+    MainForm --> GiController : Использование
+    GiController --> GiModel : Вызов методов
+    MainForm ..> InputForm : Создает окно
